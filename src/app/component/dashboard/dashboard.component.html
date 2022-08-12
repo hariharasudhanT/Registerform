@@ -1,0 +1,72 @@
+<section id="header">
+  <div id="header-container">
+    <span id="title">
+      {{ header }}
+    </span>
+    <span>
+        <a href="/login">
+            <i
+            title="Logout"
+            class="pi pi-power-off"
+            style="color: white; cursor: pointer"
+          ></i>
+        </a>
+      
+    </span>
+  </div>
+</section>
+
+<br />
+<p-table
+  #dtView
+  [columns]="cols"
+  [value]="profileData"
+  responsiveLayout="scroll"
+  [paginator]="true"
+  [rows]="5"
+>
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      List of Profile
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          #textInput
+          type="text"
+          size="50"
+          (input)="dtView.filterGlobal(textInput.value, 'contains')"
+          placeholder="Global Filter"
+          style="width: auto"
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th
+        *ngFor="let col of columns"
+        [pSortableColumn]="col.field"
+        [width]="col.width"
+      >
+        {{ col.header }}<p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td
+        *ngFor="let col of columns"
+        pResizableColumn
+        [style.max-width]="col.width"
+        [style.width]="col.width"
+      >
+        <ng-container>
+          <div title="{{ rowData[col.field] }}">
+            {{ rowData[col.field] }}
+          </div>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

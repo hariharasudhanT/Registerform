@@ -1,0 +1,20 @@
+
+.card{
+    margin: 30px;
+}
+
+::ng-deep{
+    .p-dialog .p-dialog-content {
+            padding: 0rem;
+        }
+
+    .ngx-otp-input-container{
+        justify-content: center !important;
+    }    
+}
+
+.popup-icon{
+    text-align: end;
+    margin-top: 1%;
+    margin-left: -2%;
+}

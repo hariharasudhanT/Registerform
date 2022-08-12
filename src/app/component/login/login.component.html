@@ -1,0 +1,44 @@
+
+<section id="header">
+    <div id="header-container">
+        <span id="title">
+            {{ header }}
+        </span>
+    </div>
+</section>
+<p-toast></p-toast>
+<section id="content">
+    <br>
+    <form [formGroup]="userform">
+        <div class="group">
+            <label for="floatinginput">Username</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" minlength="3" maxlength="30" [pKeyFilter]="Regex" id="floatinginput" formControlName="username">
+            </div>
+        </div>
+        <div class="group">
+            <label for="floatingPassword">Password</label>
+            <div class="input-group mb-3">
+                <input [type]="dataType" minlength="4" maxlength="16" [pKeyFilter]="blockSpace" class="form-control" id="floatingPassword" formControlName="password"
+                    placeholder="Password" aria-label="Password">
+                <span class="input-group-text">
+                    <i *ngIf="dataType =='text'" class="pi pi-eye" (click)="dataType = 'password'"></i>
+                    <i *ngIf="dataType =='password'" class="pi pi-eye-slash" (click)="dataType = 'text'"></i>
+                </span>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="row">
+                <div class="col-8">
+                    <button class="btn btn-outline-secondary" (click)="onSubmit()" type="button">Login</button>
+                </div>
+
+                <div class="col-4">
+                    <a class="dropdown-item" style="margin-left: 10rem;" href="/forgot">Forgot Password</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <a class="dropdown-item" href="/register">Don't have an account?</a>
+    </form>
+</section>

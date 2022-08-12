@@ -1,0 +1,21 @@
+
+<div class="card">
+    <div class="row">
+        <span class="popup-icon" (click)="cancel()"><i class="pi pi-times"></i></span>
+    </div>
+    <div class="header">
+        <div class="p-text-center title-success-otp">Please Enter the 6 digit OTP to Verify your Account</div>
+    </div>
+    <div class="content alignCenter">
+      <br>
+        <div class="field col-12 md:col-12 alignCenter">
+            <ngx-otp-input #ngxotp [config]="otpInputConfig"  (otpChange)="onOtpChange($event)" (fill)="validateButton=false"></ngx-otp-input> 
+        </div> 
+        <br>
+        <div class="field col-12 md:col-12">
+            <div style="text-align: center;">{{ timer}} Seconds </div>
+            <button pButton type="button" class="p-button-raised p-button-rounded validateButton" [disabled]="validateButton" (click)="submit()" style="margin-left: 38%;">Validate OTP</button><br> <br>
+            <button pButton type="button" class="p-button-text" style="margin-left: 38%;" *ngIf="resendOtpshow" (click)="resend()">Resend OTP</button>
+        </div>
+    </div>
+</div>

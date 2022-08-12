@@ -1,0 +1,25 @@
+<section id="header">
+    <div id="header-container">
+        <span id="title">
+            {{ header }}
+        </span>
+    </div>
+</section>
+
+
+<p-toast></p-toast>
+
+<section id="content">
+    <form [formGroup]="Forgotform" >
+        <div class="group">
+            <label for="floatingInput"> Email </label>
+            <div class="input-group mb-3">
+                <input type="email" maxlength="35"  pKeyFilter="email" minlength="5" pInputText class="form-control" formControlName="c_emailid" id="floatingInput">
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-outline-secondary" (click)="submit()"  type="button">Send Mail</button>
+        </div>
+    </form>
+</section>
+

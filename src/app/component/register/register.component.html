@@ -1,0 +1,140 @@
+<p>login works!</p>
+<section id="header">
+    <div id="header-container">
+        <span id="title">
+            {{ header }}
+        </span>
+    </div>
+</section>
+<p-toast></p-toast>
+<section id="content">
+    <form [formGroup]="registerform" >
+
+        <div class="group">
+            <label for="floatingInput">User Name</label>
+            <div class="input-group mb-3">
+                <input type="text" minlength="3" maxlength="16" pKeyFilter="alpha" pInputText class="form-control" formControlName="c_name" id="floatingInput">
+            </div>
+        </div>
+
+        <div class="group" style="margin-bottom: 9%;">
+            <label for="floatingdate">Date of Brith</label>
+            <div class="form-floating mb-3">
+                <p-calendar formControlName="n_dob" [style]="{'width':'100%','height': 'calc(2.3rem + 2px)'}"
+                    id="floatingdate"></p-calendar>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <label for="floatingGender" style="margin-right: 20px;">Gender</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="c_gender" id="floatingGender" value="Male"
+                    formControlName="c_gender">
+                <label class="form-check-label" for="inlineRadio1">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="c_gender" id="inlineRadio2" value="Female"
+                    formControlName="c_gender">
+                <label class="form-check-label" for="inlineRadio2">Female</label>
+            </div>
+        </div>
+        <div class="group">
+            <label for="floatingState">State</label>
+            <div class="input-group mb-3">
+                <select class="form-select" id="floatingState" formControlName="n_state"  (change)="stateChanged()">
+                    <option  disabled selected value="">Select State</option>
+                    <option *ngFor="let state  of stateList?.data" value={{state?.state_name}}>{{state?.state_name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="group">
+            <label for="floatingDistrict">District</label>
+            <div class="input-group mb-3">
+                <select class="form-select" id="floatingDistrict"  (change)="districtChanged()"
+                [attr.disabled]="form.n_state.value ? null : true" formControlName="n_district">
+                    <option disabled selected value="">Select District</option>
+                    <option *ngFor="let district  of districtlist?.data" value={{district?.district_name}}>{{district?.district_name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="group">
+            <label for="floatingCity">City</label>
+            <div class="input-group mb-3">
+               <select class="form-select" [attr.disabled]="form.n_district.value ? null : true" id="floatingCity" formControlName="n_city">
+                    <option disabled selected value="">Select City</option>
+                    <option *ngFor="let city  of citylist?.data" value={{city?.city_name}}>{{city?.city_name}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="group">
+            <label for="floatingPincode">Pincode</label>
+            <div class="input-group mb-3">
+                <input type="text" maxlength="6" pKeyFilter="num"  pInputText  id="floatingPincode" class="form-control" formControlName="n_pincode">
+            </div>
+        </div>
+        
+        <div class="group">
+            <label for="floatingAddress">Address</label>
+            <div class="input-group mb-3">
+                <input type="text"  maxlength="50" [pKeyFilter]="blockSpecial" id="floatingAddress" class="form-control" formControlName="c_address">
+            </div>
+        </div>
+       
+        <div class="group">
+            <label for="floatingPhoneNumber">Phone Number</label>
+            <div class="input-group mb-3">
+                <input type="text" maxlength="10" pKeyFilter="num" (keypress)="phone($event)"   pInputText  id="floatingPhoneNumber" class="form-control" formControlName="c_mobile_no">
+            </div>
+        </div>
+       
+        <div class="group">
+            <label for="floatingEmailId">Email Id</label>
+            <div class="input-group mb-3">
+                <input type="email"  id="floatingEmailId" pKeyFilter="email" class="form-control" formControlName="c_emailid">
+            </div>
+        </div>
+        
+        <div class="group">
+            <label for="floatingFile">Select file</label>
+            <input type="file" id="floatingFile" class="form-control" formControlName="c_image" id="inputGroupFile02">
+          
+        </div>
+
+        <div class="input-group mb-3" style="margin-top:2%;">
+            <label for="floatingGender" style="margin-right: 20px;">Hobbies</label><br>
+            <div *ngFor="let Hobbies of Hobbieslist?.data">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="c_hobbies" formControlName="c_hobbies"  (change)="onClickHandler(Hobbies?.hobbies_name , form.c_hobbies.value )" >
+                    <label class="form-check-label" for="c_hobbies">{{ Hobbies?.hobbies_name}}</label>
+                  </div>
+            </div>
+        </div>
+
+        <div class="group">
+            <label for="floatingPassword">Password</label>
+            <div class="input-group mb-3">
+                <input [type]="dataType" minlength="4" maxlength="16" [pKeyFilter]="blockSpace" class="form-control" id="floatingPassword" formControlName="c_password" placeholder="Password"
+                    aria-label="Password">
+                    <span class="input-group-text" >
+                        <i *ngIf="dataType =='text'" class="pi pi-eye" (click)="dataType = 'password'"></i>
+                        <i *ngIf="dataType =='password'" class="pi pi-eye-slash" (click)="dataType = 'text'"></i>
+                    </span>
+            </div>
+        </div>
+       
+
+        <div class="input-group">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-secondary" (click)="onSubmit()" type="button">Register</button>
+                </div>
+                <div class="col mg-2">
+                    <a class="dropdown-item" href="/login">Already have a Account</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
